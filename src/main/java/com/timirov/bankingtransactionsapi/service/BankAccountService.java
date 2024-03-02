@@ -1,14 +1,12 @@
 package com.timirov.bankingtransactionsapi.service;
 
 import com.timirov.bankingtransactionsapi.dto.BankAccountDto;
-import com.timirov.bankingtransactionsapi.dto.BankAccountRequestDto;
 import com.timirov.bankingtransactionsapi.entity.BankAccount;
 import com.timirov.bankingtransactionsapi.repository.BankAccountRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 
 @Service
@@ -18,13 +16,18 @@ public class BankAccountService {
 
     public BankAccount create(BankAccountDto bankAccountDto) {
         return bankAccountRepository.save(BankAccount.builder()
-                .check(bankAccountDto.getCheck())
+                .money(bankAccountDto.getMoney())
+                .initialDeposit(bankAccountDto.getMoney())
                 .user(bankAccountDto.getUser())
                 .build());
     }
 
-    public BankAccount fetchUsername(String username){
+    public BankAccount fetchUsername(String username) {
         return bankAccountRepository.findBankAccountByUserUsername(username).orElseThrow();
+    }
+
+    public List<BankAccount> getAll() {
+        return bankAccountRepository.findAll();
     }
 
     public void update(BankAccount bankAccount) {

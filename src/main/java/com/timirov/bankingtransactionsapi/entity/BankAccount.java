@@ -17,7 +17,9 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private BigDecimal check;
+    private BigDecimal money;
+
+    private BigDecimal initialDeposit;
 
     @OneToOne
     private User user;

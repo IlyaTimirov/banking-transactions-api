@@ -19,14 +19,14 @@ public class TransferMoneyService {
     public TransferMoneyResponseDto transferMoneyId(TransferMoneyDto transferMoneyDto, String username) {
         BankAccount sender = bankAccountService.fetchUsername(username);
 
-        if (sender.getCheck().compareTo(transferMoneyDto.getSum()) > 0) {
+        if (sender.getMoney().compareTo(transferMoneyDto.getSum()) > 0) {
             throw new InsufficientFundsException();
         }
 
         BankAccount recipient = bankAccountService.fetchUsername(username);
 
-        sender.setCheck(sender.getCheck().subtract(transferMoneyDto.getSum()));
-        recipient.setCheck(recipient.getCheck().add(transferMoneyDto.getSum()));
+        sender.setMoney(sender.getMoney().subtract(transferMoneyDto.getSum()));
+        recipient.setMoney(recipient.getMoney().add(transferMoneyDto.getSum()));
 
         bankAccountService.update(sender);
         bankAccountService.update(recipient);

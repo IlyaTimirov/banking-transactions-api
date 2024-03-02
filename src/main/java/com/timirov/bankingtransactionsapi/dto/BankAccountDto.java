@@ -11,6 +11,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BankAccountDto {
-    private BigDecimal check;
+    private BigDecimal money;
     private User user;
 }
