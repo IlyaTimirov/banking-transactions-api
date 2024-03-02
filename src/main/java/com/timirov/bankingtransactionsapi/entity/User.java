@@ -1,6 +1,7 @@
 package com.timirov.bankingtransactionsapi.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,8 +20,10 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Заполните имя пользователя!")
     private String username;
 
+    @NotBlank(message = "Введите пароль!")
     private String password;
 
     @OneToMany
@@ -29,8 +32,10 @@ public class User {
     @OneToMany
     private List<Email> emails = new ArrayList<>();
 
+    @NotBlank(message = "Введите дату рождения!")
     private LocalDate dateOfBirth;
 
+    @NotBlank(message = "Введите Фамилию Имя Отчетсво (Иванов Иван Иванович)")
     private String fullName;
 
     @OneToOne
