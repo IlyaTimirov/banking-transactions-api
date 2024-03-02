@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmailDto {
     private String email;
-    private User user;
 }

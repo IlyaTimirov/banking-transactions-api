@@ -1,26 +1,32 @@
 package com.timirov.bankingtransactionsapi.service;
 
-import com.timirov.bankingtransactionsapi.dto.PhoneRequestDto;
-import com.timirov.bankingtransactionsapi.repository.BankAccountRepository;
+import com.timirov.bankingtransactionsapi.dto.TransferMoneyDto;
+import com.timirov.bankingtransactionsapi.entity.BankAccount;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
 public class TransferMoneyService {
 
-    private final BankAccountRepository bankAccountRepository;
+    private final BankAccountService bankAccountService;
 
+    private final UserService userService;
     @Transactional
-    public void transferMoneyPhone(PhoneRequestDto phoneRequestDto){
-        // Сумма запрашиваемого перевода достаточно на счет если нет ошибка у вас недостаточно средств
-        // первое находим есть ли такой номер у пользователя если
-        // нету ошибка пользователя с таким номером не сущетсвует
+    public void transferMoneyPhone(TransferMoneyDto transferMoneyDto, String username){
+        BankAccount sender = bankAccountService.fetchUsername(username);
+        if(sender.getCheck().compareTo(transferMoneyDto.getSum()) > 0){
+            // Ошибка денег недостаточно
+        }
+        BankAccount recipient = bankAccountService.fetchUsername(username);
 
-        // Если все прошло
-        // Получаем деньги пользователя отнимаем сумму перевода остток вставляем
-        // Достаем пользователя по номеру телефона получаем его деньги плюсуем и вставляем в сущетсвующие
-        // Делаем обновление двух пользователей
+        sender.setCheck(sender.getCheck().subtract(transferMoneyDto.getSum()));
+        recipient.setCheck(recipient.getCheck().add(transferMoneyDto.getSum()));
+
+        bankAccountService.update(sender);
+        bankAccountService.update(recipient);
     }
 }

@@ -23,6 +23,10 @@ public class BankAccountService {
                 .build());
     }
 
+    public BankAccount fetchUsername(String username){
+        return bankAccountRepository.findBankAccountByUserUsername(username).orElseThrow();
+    }
+
     public void update(BankAccount bankAccount) {
         bankAccountRepository.save(bankAccount);
     }

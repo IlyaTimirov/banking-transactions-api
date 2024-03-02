@@ -20,7 +20,9 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username).orElseThrow();
+    }
     public User create(CreateUserDto userRequestDto) {
         return userRepository.save(User.builder()
                 .username(userRequestDto.getUsername())

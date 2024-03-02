@@ -21,8 +21,8 @@ public class CreateUserService {
     public void createNewUser(CreateUserDto userRequestDto){
         User user = userService.create(userRequestDto);
         user.setBankAccount(bankAccountService.create(new BankAccountDto(userRequestDto.getCheck(), user)));
-        user.getEmails().add(emailService.create(new EmailDto(userRequestDto.getEmail(), user)));
-        user.getPhones().add(phoneService.create(new PhoneDto(userRequestDto.getPhone(), user)));
+        user.getEmails().add(emailService.create(new EmailDto(userRequestDto.getEmail()), user));
+        user.getPhones().add(phoneService.create(new PhoneDto(userRequestDto.getPhone()), user));
         userService.update(user);
     }
 }

@@ -1,13 +1,15 @@
 package com.timirov.bankingtransactionsapi.dto;
 
-import com.timirov.bankingtransactionsapi.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneDto {
-    private String phone;
+public class TransferMoneyDto {
+    private BigDecimal sum;
+    private Long bankAccount;
 }

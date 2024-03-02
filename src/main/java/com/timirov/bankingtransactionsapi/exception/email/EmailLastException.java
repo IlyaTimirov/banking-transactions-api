@@ -1,4 +1,4 @@
-package com.timirov.bankingtransactionsapi.exception;
+package com.timirov.bankingtransactionsapi.exception.email;
 
 public class EmailLastException extends RuntimeException{
     public EmailLastException() {
