@@ -17,7 +17,7 @@ public class SchedulerService {
 
     private final static Integer DEPOSIT_INCREASE_PERCENTAGE = 5;
 
-    @Scheduled(cron = "@minute")
+    //@Scheduled(cron = "@minute")
     public void addMoneyUser() {
         List<BankAccount> bankAccounts = bankAccountService.getAll();
 

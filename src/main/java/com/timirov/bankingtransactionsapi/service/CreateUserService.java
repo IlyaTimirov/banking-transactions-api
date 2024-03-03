@@ -1,10 +1,15 @@
 package com.timirov.bankingtransactionsapi.service;
 
 import com.timirov.bankingtransactionsapi.dto.*;
+import com.timirov.bankingtransactionsapi.entity.Email;
+import com.timirov.bankingtransactionsapi.entity.Phone;
 import com.timirov.bankingtransactionsapi.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +23,18 @@ public class CreateUserService {
     private final UserService userService;
 
     @Transactional
-    public void createNewUser(CreateUserDto userRequestDto){
+    public void createNewUser(CreateUserDto userRequestDto) {
         User user = userService.create(userRequestDto);
         user.setBankAccount(bankAccountService.create(new BankAccountDto(userRequestDto.getCheck(), user)));
-        user.getEmails().add(emailService.create(new EmailDto(userRequestDto.getEmail()), user));
-        user.getPhones().add(phoneService.create(new PhoneDto(userRequestDto.getPhone()), user));
+
+        List<Email> emails = new ArrayList<>();
+        emails.add(emailService.create(new EmailDto(userRequestDto.getEmail()), user));
+        user.setEmails(emails);
+
+        List<Phone> phones = new ArrayList<>();
+        phones.add(phoneService.create(new PhoneDto(userRequestDto.getPhone()), user));
+        user.setPhones(phones);
+
         userService.update(user);
     }
 }

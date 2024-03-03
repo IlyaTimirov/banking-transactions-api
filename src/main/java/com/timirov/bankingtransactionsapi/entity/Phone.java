@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @Builder
 public class Phone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

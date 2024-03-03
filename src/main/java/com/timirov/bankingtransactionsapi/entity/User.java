@@ -26,10 +26,10 @@ public class User {
     @NotBlank(message = "Введите пароль!")
     private String password;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Phone> phones = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Email> emails = new ArrayList<>();
 
     @NotBlank(message = "Введите дату рождения!")
