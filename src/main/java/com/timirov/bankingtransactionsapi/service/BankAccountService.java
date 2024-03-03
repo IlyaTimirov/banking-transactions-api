@@ -26,6 +26,9 @@ public class BankAccountService {
         return bankAccountRepository.findBankAccountByUserUsername(username).orElseThrow();
     }
 
+    public BankAccount fetchId(Long id){
+        return bankAccountRepository.findById(id).orElseThrow();
+    }
     public List<BankAccount> getAll(){
         return bankAccountRepository.findAll();
     }

@@ -11,6 +11,7 @@ import lombok.*;
 @Getter
 @Builder
 public class Email {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,5 +21,6 @@ public class Email {
     private String email;
 
     @ManyToOne
+    @JoinColumn
     private User user;
 }

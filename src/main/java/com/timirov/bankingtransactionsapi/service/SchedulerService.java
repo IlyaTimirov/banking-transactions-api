@@ -13,16 +13,16 @@ import java.util.List;
 public class SchedulerService {
 
     private final BankAccountService bankAccountService;
-    private final static Integer MAX_PERCENT = 207;
+    private final static Double MAX_PERCENT = 2.07;
 
-    private final static Integer DEPOSIT_INCREASE_PERCENTAGE = 5;
+    private final static Double DEPOSIT_INCREASE_PERCENTAGE = 0.05;
 
-    //@Scheduled(cron = "@minute")
+    @Scheduled(cron = "0 * * * * *")
     public void addMoneyUser() {
         List<BankAccount> bankAccounts = bankAccountService.getAll();
 
         bankAccounts.forEach(bankAccount -> {
-            if (bankAccount.getInitialDeposit().multiply(BigDecimal.valueOf(MAX_PERCENT)).compareTo(bankAccount.getMoney()) > 0) {
+            if (bankAccount.getInitialDeposit().multiply(BigDecimal.valueOf(MAX_PERCENT)).compareTo(bankAccount.getMoney()) < 0) {
                 BigDecimal percent = bankAccount.getMoney().multiply(BigDecimal.valueOf(DEPOSIT_INCREASE_PERCENTAGE));
                 bankAccount.setMoney(bankAccount.getMoney().add(percent));
                 bankAccountService.update(bankAccount);

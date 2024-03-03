@@ -28,10 +28,10 @@ public class User {
     @NotBlank(message = "Введите пароль!")
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Email> emails = new ArrayList<>();
 
     @NotNull(message = "Введите дату рождения!")
@@ -40,7 +40,7 @@ public class User {
     @NotBlank(message = "Введите Фамилию Имя Отчетсво (Иванов Иван Иванович)")
     private String fullName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankAccount bankAccount;
 
 }

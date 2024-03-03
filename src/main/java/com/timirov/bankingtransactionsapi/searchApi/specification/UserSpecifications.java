@@ -16,7 +16,7 @@ public class UserSpecifications {
     }
 
     public static Specification<User> fullNameContains(String fullName) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("fullName"), "%" +  fullName + "%");
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("fullName"), "%" +  fullName + "%");
     }
 
     public static Specification<User> dateOfBirthAfter(LocalDate dateOfBirth) {

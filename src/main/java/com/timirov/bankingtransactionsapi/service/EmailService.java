@@ -36,7 +36,7 @@ public class EmailService {
         if(emailRepository.countEmailByUserId(id).equals(EMAIL_LAST)){
             throw new EmailLastException();
         }
-        emailRepository.deleteById(id);
+        emailRepository.delete(fetchById(id));
     }
 
     public Email create(EmailDto emailDto, User user){

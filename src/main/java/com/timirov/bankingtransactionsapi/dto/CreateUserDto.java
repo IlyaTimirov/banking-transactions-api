@@ -1,9 +1,6 @@
 package com.timirov.bankingtransactionsapi.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,5 +35,6 @@ public class CreateUserDto {
     private String fullName;
 
     @NotNull(message = "Нужно указать начальный депозит")
+    @Min(message = "Начальный депозит не должен быть нулевым!", value = 1)
     private BigDecimal deposit;
 }

@@ -5,6 +5,7 @@ import com.timirov.bankingtransactionsapi.dto.PhoneRequestDto;
 import com.timirov.bankingtransactionsapi.entity.User;
 import com.timirov.bankingtransactionsapi.service.PhoneService;
 import com.timirov.bankingtransactionsapi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class PhoneController {
     }
 
     @PostMapping("/phone/add")
-    public ResponseEntity<?> add(@RequestBody PhoneRequestDto phoneRequestDto, Principal principal){
+    public ResponseEntity<?> add(@RequestBody @Valid PhoneRequestDto phoneRequestDto, Principal principal){
         phoneService.create(new PhoneDto(phoneRequestDto.getPhone()), getUser(principal));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -33,12 +34,12 @@ public class PhoneController {
     @PatchMapping("/phone/update")
     public ResponseEntity<?> update(@RequestBody PhoneRequestDto phoneRequestDto, Principal principal){
         phoneService.update(phoneRequestDto, getUser(principal));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/phone/remove/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id, Principal principal){
         phoneService.remove(id, getUser(principal));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
