@@ -22,10 +22,10 @@ public class SchedulerService {
         List<BankAccount> bankAccounts = bankAccountService.getAll();
 
         bankAccounts.forEach(bankAccount -> {
-            if (bankAccount.getInitialDeposit().multiply(BigDecimal.valueOf(MAX_PERCENT)).compareTo(bankAccount.getMoney()) < 0) {
-                BigDecimal percent = bankAccount.getMoney().multiply(BigDecimal.valueOf(DEPOSIT_INCREASE_PERCENTAGE));
-                bankAccount.setMoney(bankAccount.getMoney().add(percent));
-                bankAccountService.update(bankAccount);
+            BigDecimal maxSum = bankAccount.getInitialDeposit().multiply(BigDecimal.valueOf(MAX_PERCENT)).add(bankAccount.getInitialDeposit());
+            if (maxSum.compareTo(bankAccount.getMoney()) < 0) {
+                BigDecimal amount = bankAccount.getMoney().multiply(BigDecimal.valueOf(DEPOSIT_INCREASE_PERCENTAGE));
+                bankAccountService.addMoney(bankAccount, amount);
             }
         });
     }

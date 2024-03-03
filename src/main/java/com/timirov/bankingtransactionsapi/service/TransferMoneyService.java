@@ -25,11 +25,8 @@ public class TransferMoneyService {
 
         BankAccount recipient = bankAccountService.fetchId(transferMoneyDto.getBankAccount());
 
-        sender.setMoney(sender.getMoney().subtract(transferMoneyDto.getSum()));
-        recipient.setMoney(recipient.getMoney().add(transferMoneyDto.getSum()));
-
-        bankAccountService.update(sender);
-        bankAccountService.update(recipient);
+        bankAccountService.subtractMoney(sender, transferMoneyDto.getSum());
+        bankAccountService.addMoney(recipient, transferMoneyDto.getSum());
 
         return new TransferMoneyResponseDto(TRANSLATION_COMPLETED);
     }
