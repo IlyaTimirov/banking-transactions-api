@@ -18,20 +18,19 @@ public class EmailService {
     private final EmailRepository emailRepository;
 
     public void update(EmailRequestDto emailRequestDto, User user) {
-        Email email = Email.builder()
-                .id(emailRequestDto.getId())
-                .email(emailRequestDto.getEmail())
-                .user(user)
-                .build();
-        if(user.getEmails().contains(email)){
-            emailRepository.save(email);
+        if(isContains(emailRequestDto.getId(), user)){
+            emailRepository.save(Email.builder()
+                    .id(emailRequestDto.getId())
+                    .email(emailRequestDto.getEmail())
+                    .user(user)
+                    .build());
         } else {
             throw new EmailNotUserException();
         }
     }
 
     public void remove(Long id, User user){
-        if(!user.getEmails().contains(emailRepository.findById(id).orElseThrow())){
+        if(!isContains(id, user)){
             throw new EmailNotUserException();
         }
         if(emailRepository.countEmailByUserId(id).equals(EMAIL_LAST)){
@@ -49,5 +48,9 @@ public class EmailService {
 
     public Email fetchById(Long id){
         return emailRepository.findById(id).orElseThrow();
+    }
+
+    private boolean isContains(Long id, User user){
+        return user.getEmails().contains(fetchById(id));
     }
 }

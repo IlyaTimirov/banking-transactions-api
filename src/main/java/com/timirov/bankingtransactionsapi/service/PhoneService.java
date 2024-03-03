@@ -18,20 +18,19 @@ public class PhoneService {
     private final PhoneRepository phoneRepository;
 
     public void update(PhoneRequestDto phoneRequestDto, User user) {
-        Phone phone = Phone.builder()
-                .id(phoneRequestDto.getId())
-                .phone(phoneRequestDto.getPhone())
-                .user(user)
-                .build();
-        if(user.getPhones().contains(phone)){
-            phoneRepository.save(phone);
+        if(isContains(phoneRequestDto.getId(), user)){
+            phoneRepository.save(Phone.builder()
+                    .id(phoneRequestDto.getId())
+                    .phone(phoneRequestDto.getPhone())
+                    .user(user)
+                    .build());
         } else {
             throw new PhoneNotUserException();
         }
     }
 
     public void remove(Long id, User user){
-        if(!user.getPhones().contains(phoneRepository.findById(id).orElseThrow())){
+        if(!isContains(id, user)){
             throw new  PhoneNotUserException();
         }
         if(phoneRepository.countPhoneByUserId(id).equals(PHONE_LAST)){
@@ -46,5 +45,14 @@ public class PhoneService {
         }
         return phoneRepository.save(Phone.builder().phone(phoneDto.getPhone()).user(user).build());
     }
+
+    public Phone fetchById(Long id){
+        return phoneRepository.findById(id).orElseThrow();
+    }
+
+    private boolean isContains(Long id, User user){
+        return user.getPhones().contains(fetchById(id));
+    }
+
 
 }

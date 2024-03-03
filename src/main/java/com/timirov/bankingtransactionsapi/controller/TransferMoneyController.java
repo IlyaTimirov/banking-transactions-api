@@ -16,7 +16,7 @@ import java.security.Principal;
 public class TransferMoneyController {
     private final TransferMoneyService transferMoneyService;
 
-    @PostMapping
+    @PostMapping("/transfer")
     public ResponseEntity<?> transferMoney(@RequestBody TransferMoneyDto transferMoneyDto, Principal principal){
         return new ResponseEntity<>(transferMoneyService.transferMoneyId(transferMoneyDto, principal.getName()), HttpStatus.OK);
     }

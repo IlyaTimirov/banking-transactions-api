@@ -2,6 +2,7 @@ package com.timirov.bankingtransactionsapi.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,9 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@Table(name = "users", schema = "public")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -32,7 +34,7 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Email> emails = new ArrayList<>();
 
-    @NotBlank(message = "Введите дату рождения!")
+    @NotNull(message = "Введите дату рождения!")
     private LocalDate dateOfBirth;
 
     @NotBlank(message = "Введите Фамилию Имя Отчетсво (Иванов Иван Иванович)")

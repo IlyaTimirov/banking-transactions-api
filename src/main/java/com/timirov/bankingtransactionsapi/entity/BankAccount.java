@@ -1,6 +1,7 @@
 package com.timirov.bankingtransactionsapi.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,11 +15,13 @@ import java.math.BigDecimal;
 public class BankAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private BigDecimal money;
 
+    @NotNull
     private BigDecimal initialDeposit;
 
     @OneToOne

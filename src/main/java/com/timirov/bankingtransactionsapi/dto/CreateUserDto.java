@@ -22,6 +22,7 @@ public class CreateUserDto {
     @NotBlank(message = "Заполните пароль!")
     private String password;
 
+
     @NotBlank(message = "Заполните почту!")
     @Email(message = "Неккоретная почта (ivanov@mail.ru)")
     private String email;
@@ -33,7 +34,7 @@ public class CreateUserDto {
     @NotNull(message = "Заполните дату рождения!")
     private LocalDate dateOfBirth;
 
-    @NotBlank(message = "Заполните Фамилия Имя Отчество!")
+    @NotBlank(message = "Введите Фамилию Имя Отчетсво (Иванов Иван Иванович)")
     private String fullName;
 
     @NotNull(message = "Нужно указать начальный депозит")

@@ -1,6 +1,7 @@
 package com.timirov.bankingtransactionsapi.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -11,12 +12,13 @@ import lombok.*;
 @Builder
 public class Email {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @NotBlank(message = "Заполните почту!")
+    @jakarta.validation.constraints.Email(message = "Неккоретная почта (ivanov@mail.ru)")
     private String email;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 }
