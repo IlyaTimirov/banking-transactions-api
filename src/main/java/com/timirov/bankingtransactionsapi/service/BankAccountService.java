@@ -17,16 +17,16 @@ public class BankAccountService {
     public BankAccount create(BankAccountDto bankAccountDto) {
         return bankAccountRepository.save(BankAccount.builder()
                 .money(bankAccountDto.getMoney())
-                .initialDeposit(bankAccountDto.getMoney())
+                        .initialDeposit(bankAccountDto.getMoney())
                 .user(bankAccountDto.getUser())
                 .build());
     }
 
-    public BankAccount fetchUsername(String username) {
+    public BankAccount fetchUsername(String username){
         return bankAccountRepository.findBankAccountByUserUsername(username).orElseThrow();
     }
 
-    public List<BankAccount> getAll() {
+    public List<BankAccount> getAll(){
         return bankAccountRepository.findAll();
     }
 

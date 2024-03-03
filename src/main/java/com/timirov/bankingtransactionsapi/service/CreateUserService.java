@@ -25,7 +25,7 @@ public class CreateUserService {
     @Transactional
     public void createNewUser(CreateUserDto userRequestDto) {
         User user = userService.create(userRequestDto);
-        user.setBankAccount(bankAccountService.create(new BankAccountDto(userRequestDto.getCheck(), user)));
+        user.setBankAccount(bankAccountService.create(new BankAccountDto(userRequestDto.getDeposit(), user)));
 
         List<Email> emails = new ArrayList<>();
         emails.add(emailService.create(new EmailDto(userRequestDto.getEmail()), user));
