@@ -1,13 +1,9 @@
 package com.timirov.bankingtransactionsapi.service;
 
 import com.timirov.bankingtransactionsapi.dto.CreateUserDto;
-import com.timirov.bankingtransactionsapi.entity.BankAccount;
-import com.timirov.bankingtransactionsapi.entity.Email;
-import com.timirov.bankingtransactionsapi.entity.Phone;
 import com.timirov.bankingtransactionsapi.entity.User;
 import com.timirov.bankingtransactionsapi.exception.UserAlreadyExistsException;
 import com.timirov.bankingtransactionsapi.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,9 +27,5 @@ public class UserService {
                 .dateOfBirth(userRequestDto.getDateOfBirth())
                 .fullName(userRequestDto.getFullName())
                 .build());
-    }
-
-    public void update(User user){
-        userRepository.save(user);
     }
 }

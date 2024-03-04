@@ -44,8 +44,4 @@ public class BankAccountService {
     public List<BankAccount> getAll() {
         return bankAccountRepository.findAll();
     }
-
-    public void update(BankAccount bankAccount) {
-        bankAccountRepository.save(bankAccount);
-    }
 }

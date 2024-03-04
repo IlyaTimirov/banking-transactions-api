@@ -1,15 +1,11 @@
 package com.timirov.bankingtransactionsapi.service;
 
 import com.timirov.bankingtransactionsapi.dto.*;
-import com.timirov.bankingtransactionsapi.entity.Email;
-import com.timirov.bankingtransactionsapi.entity.Phone;
 import com.timirov.bankingtransactionsapi.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
